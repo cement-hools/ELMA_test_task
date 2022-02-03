@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'elma.urls'
+ROOT_URLCONF = 'engine.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'elma.wsgi.application'
+WSGI_APPLICATION = 'engine.wsgi.application'
 
 
 # Database

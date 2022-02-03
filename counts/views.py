@@ -1,6 +1,7 @@
 from urllib.error import URLError
 from urllib.request import urlopen
 
+import requests
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -40,7 +41,6 @@ def count_query(urls, time_out):
 @api_view(['POST'])
 def counts(request):
     serializer = QuerySerializer(data=request.data)
-    print("1")
     if serializer.is_valid():
 
         urls = serializer.data.get('urls')
