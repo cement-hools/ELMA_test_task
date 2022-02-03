@@ -1,3 +1,4 @@
+from urllib.error import URLError
 from urllib.request import urlopen
 
 from rest_framework import status
@@ -11,7 +12,10 @@ def url_count(item, time_out):
     url_result = {"url": item['url']}
     url_status = "error"
 
-    response = urlopen(item['url'], timeout=time_out)
+    try:
+        response = urlopen(item['url'], timeout=time_out)
+    except URLError:
+        return None
     if response.getcode() == 200:
         html = response.read().decode('utf-8')
         cnt = html.count(item['query'])
@@ -28,7 +32,9 @@ def count_query(urls, time_out):
     for item in urls:
         if item['url'] in urls_set:
             continue
-        tasks.append(url_count(item, time_out))
+        res = url_count(item, time_out)
+        if res:
+            tasks.append(res)
         urls_set.add(item['url'])
 
     return tasks
@@ -44,9 +50,7 @@ def counts(request):
 
         result = count_query(urls, timeout)
 
-        print(result)
-
-        answer_ser = AnswerSerializer(data={"urls": result})
-        if answer_ser.is_valid():
-            return Response(answer_ser.data, status=status.HTTP_201_CREATED)
+        answer_serializer = AnswerSerializer(data={"urls": result})
+        if answer_serializer.is_valid():
+            return Response(answer_serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
