@@ -9,8 +9,7 @@ from counts.serializers import QuerySerializer, AnswerSerializer
 
 
 def url_count(item, time_out):
-    url_result = {"url": item['url']}
-    url_status = "error"
+    url_result = {"url": item['url'], "status": "error"}
 
     try:
         response = urlopen(item['url'], timeout=time_out)
@@ -19,11 +18,10 @@ def url_count(item, time_out):
     if response.getcode() == 200:
         html = response.read().decode('utf-8')
         cnt = html.count(item['query'])
-        url_status = "ok"
-        url_result["status"] = url_status
-        if url_status == "ok":
-            url_result["count"] = cnt
-        return url_result
+        url_result["status"] = "ok"
+        url_result["count"] = cnt
+
+    return url_result
 
 
 def count_query(urls, time_out):
