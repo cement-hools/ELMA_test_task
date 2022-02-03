@@ -14,7 +14,7 @@ def url_count(item, time_out):
     try:
         response = urlopen(item['url'], timeout=time_out)
     except URLError:
-        return None
+        return url_result
     if response.getcode() == 200:
         html = response.read().decode('utf-8')
         cnt = html.count(item['query'])
@@ -31,8 +31,7 @@ def count_query(urls, time_out):
         if item['url'] in urls_set:
             continue
         res = url_count(item, time_out)
-        if res:
-            tasks.append(res)
+        tasks.append(res)
         urls_set.add(item['url'])
 
     return tasks
@@ -41,6 +40,7 @@ def count_query(urls, time_out):
 @api_view(['POST'])
 def counts(request):
     serializer = QuerySerializer(data=request.data)
+    print("1")
     if serializer.is_valid():
 
         urls = serializer.data.get('urls')
@@ -51,4 +51,5 @@ def counts(request):
         answer_serializer = AnswerSerializer(data={"urls": result})
         if answer_serializer.is_valid():
             return Response(answer_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(answer_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

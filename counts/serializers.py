@@ -9,7 +9,7 @@ class UrlSerializer(Serializer):
 
 class ResultSerializer(Serializer):
     url = serializers.URLField()
-    count = serializers.IntegerField()
+    count = serializers.IntegerField(required=False)
     status = serializers.CharField()
 
 
