@@ -1,6 +1,6 @@
 from typing import List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, PositiveInt
 
 
 class UrlModel(BaseModel):
@@ -10,4 +10,4 @@ class UrlModel(BaseModel):
 
 class DataModel(BaseModel):
     urls: List[UrlModel]
-    max_timeout: int = 3000
+    max_timeout: PositiveInt = 3000

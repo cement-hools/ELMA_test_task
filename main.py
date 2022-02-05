@@ -3,10 +3,10 @@ import fastapi
 from schemas import DataModel
 from utils import fetch_all_urls
 
-api = fastapi.FastAPI()
+app = fastapi.FastAPI()
 
 
-@api.post('/counts')
+@app.post('/counts')
 async def counts(data: DataModel):
     time_out = data.max_timeout / 1000
     urls = data.urls

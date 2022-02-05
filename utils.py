@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-import httpx
+from httpx import AsyncClient
 
 logging.basicConfig(
     level=logging.INFO,
@@ -34,7 +34,7 @@ async def parse_url(client, time_out, url, query):
 
 
 async def fetch_all_urls(urls, time_out: float):
-    async with httpx.AsyncClient() as client:
+    async with AsyncClient() as client:
         task_list = [
             parse_url(client, time_out, item.url, item.query)
             for item in
