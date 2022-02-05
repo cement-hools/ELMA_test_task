@@ -1,15 +1,25 @@
 import asyncio
+import logging
 
 import httpx
 
+logging.basicConfig(
+    level=logging.INFO,
+    format=(
+        "%(asctime)s - [%(levelname)s] - %(name)s - "
+        "(%(filename)s).%(funcName)s(%(lineno)d) - %(message)s"
+    ),
+)
+logger = logging.getLogger(__name__)
 
-async def parse_url(client, time_out, url, query, ):
+
+async def parse_url(client, time_out, url, query):
     res_dict = {'url': url, 'status': 'error'}
 
     try:
         response = await client.get(url, timeout=time_out)
     except Exception as error:
-        print(error.__class__.__name__, error)
+        logger.error(f"{url}: {error.__class__.__name__}, {error}")
         return res_dict
     else:
         status = response.status_code
