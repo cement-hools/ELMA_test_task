@@ -13,6 +13,6 @@ async def counts(data: DataModel):
     time_out: float = data.max_timeout / 1000
     urls: List[UrlModel] = data.urls
 
-    result: list = await fetch_all_urls(urls, time_out)
+    result: List[Dict] = await fetch_all_urls(urls, time_out)
 
     return {'urls': result}
