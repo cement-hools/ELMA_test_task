@@ -4,6 +4,7 @@
 https://github.com/cement-hools/ELMA_test_task/badge.svg
 --->
 ![example workflow](https://github.com/cement-hools/ELMA_test_task/actions/workflows/project_test.yml/badge.svg)
+### Используется GitHub Actions для автоматического тестирования при изменении кода в репозитории
 
 ## Технологии
     Python 3.8, FastApi, PyTest, httpx, pydantic
