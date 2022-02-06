@@ -136,3 +136,23 @@ HTTP 200
 ```
 pytest
 ```
+
+## Запуск Docker
+
+1. Клонировать репозиторий
+    ```
+    git clone https://github.com/cement-hools/ELMA_test_task
+    ```
+2. Перейдите в директорию ELMA_test_task
+    ```
+   cd ELMA_test_task
+    ```
+3. Запустить docker-compose
+    ```
+    docker-compose up --build
+    ```
+4. Проект доступен 
+   ```
+   http://127.0.0.1:8000/
+   http://localhost:8000/
+   ```
