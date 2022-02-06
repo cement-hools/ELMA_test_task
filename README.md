@@ -1,5 +1,10 @@
 # ELMA Тестовое Задание
 
+<!---
+https://github.com/cement-hools/ELMA_test_task/badge.svg
+--->
+![example workflow](https://github.com/cement-hools/ELMA_test_task/actions/workflows/project_test.yml/badge.svg)
+
 ## Технологии
     Python 3.8, FastApi, PyTest, httpx, pydantic
 
