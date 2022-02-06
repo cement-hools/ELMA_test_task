@@ -1,7 +1,7 @@
 # ELMA Тестовое Задание
 
 ## Технологии
-    Python 3.8, FastApi
+    Python 3.8, FastApi, PyTest, httpx, pydantic
 
 ## Задача
 
@@ -122,9 +122,14 @@ HTTP 200
    ```
 5. Проект доступен 
    ```
-   http://127.0.0.1:8000/
-   http://localhost:8000/
+   http://127.0.0.1:8000
+   http://localhost:8000
    ```
+
+## Swaggerr
+```
+/docs
+```
 
 ## Тесты
 Запустить тесты
