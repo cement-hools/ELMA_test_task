@@ -4,7 +4,8 @@ import pytest as pytest
 from httpx import AsyncClient, TimeoutException, HTTPError
 
 from main import app
-from utils import parse_url
+from schemas import UrlModel
+from utils import parse_url, fetch_all_urls
 
 
 @pytest.mark.asyncio
@@ -182,3 +183,32 @@ class TestParseUrl:
         assert "status" in result
         assert result["status"] == "error"
         assert "count" not in result
+
+
+@pytest.mark.asyncio
+class TestFetchAllUrls:
+    """Тест функции fetch_all_urls."""
+
+    async def test_fetch_all_urls(self):
+        """Тест с валидными параметрами."""
+
+        data = {
+            "urls": [
+                {"url": "https://python.org", "query": "python"},
+                {"url": "https://www.djangoproject.com", "query": "django"},
+                {"url": "https://варвар.com", "query": "python"},
+                {"url": "https://pythonist.ru", "query": "2"}
+            ],
+            "max_timeout": 3000
+        }
+
+        timeout = data["max_timeout"]
+        url_list = [UrlModel.parse_obj(item) for item in data["urls"]]
+
+        result = await fetch_all_urls(url_list, timeout)
+
+        assert isinstance(result, list) is True
+        assert len(result) == len(data["urls"])
+        assert isinstance(result[0], dict) is True
+        assert "url" in result[0]
+        assert "status" in result[0]
