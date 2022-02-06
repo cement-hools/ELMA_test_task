@@ -5,3 +5,4 @@ pytest-asyncio==0.17.2
 pytest-httpx==0.19.0
 pytest-trio==0.7.0
 uvicorn==0.17.4
+pydantic~=1.9.0
