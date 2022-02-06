@@ -1,7 +1,10 @@
 import asyncio
 import logging
+from typing import Dict, Union, List
 
 from httpx import AsyncClient
+
+from schemas import UrlModel
 
 logging.basicConfig(
     level=logging.INFO,
@@ -13,7 +16,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-async def parse_url(client, time_out, url, query):
+async def parse_url(
+        client: AsyncClient, time_out: float, url: str, query: str
+) -> Dict[str, Union[str, int]]:
     res_dict = {'url': url, 'status': 'error'}
 
     try:
@@ -33,11 +38,10 @@ async def parse_url(client, time_out, url, query):
     return res_dict
 
 
-async def fetch_all_urls(urls, time_out: float):
+async def fetch_all_urls(urls: List[UrlModel], time_out: float):
     async with AsyncClient() as client:
         task_list = [
             parse_url(client, time_out, item.url, item.query)
-            for item in
-            urls
+            for item in urls
         ]
         return await asyncio.gather(*task_list)
