@@ -16,3 +16,9 @@ async def counts(data: DataModel):
     result: List[Dict] = await fetch_all_urls(urls, time_out)
 
     return {'urls': result}
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app)
