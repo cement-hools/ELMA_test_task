@@ -1,7 +1,7 @@
 import asyncio
 
 import pytest as pytest
-from httpx import AsyncClient, ConnectError, TimeoutException
+from httpx import AsyncClient, TimeoutException, HTTPError
 
 from main import app
 from utils import parse_url
@@ -116,7 +116,6 @@ class TestParseUrl:
         text = "foooo"
 
         httpx_mock.add_response(text=text)
-        # httpx_mock.add_exception(Exception)
         async with AsyncClient() as client:
             res = await asyncio.gather(parse_url(client, 2, url, query))
 
@@ -134,9 +133,8 @@ class TestParseUrl:
         """Работает с не валидным адресом."""
         url = "https://ww@.-5644.com"
         query = "o"
-        text = "foooo"
 
-        httpx_mock.add_exception(ConnectError)
+        httpx_mock.add_exception(HTTPError)
         async with AsyncClient() as client:
             res = await asyncio.gather(parse_url(client, 2, url, query))
 
